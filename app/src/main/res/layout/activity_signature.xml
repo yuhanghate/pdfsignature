@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/toolbar" />
+
+    <!--    <com.f1reking.signatureview.SignatureView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:penColor="@color/colorPrimary"-->
+    <!--        app:penWidth="30"-->
+    <!--        app:backColor="@color/colorPrimary"-->
+    <!--        />-->
+
+
+    <com.example.pdf_signature.signatureview.SignatureView
+        android:id="@+id/signatureView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:backColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/ll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:penColor="@color/black"
+        app:penWidth="12" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginBottom="16dp"
+            android:background="#bfbfbf" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp">
+
+            <com.example.pdf_signature.fancybuttons.FancyButton
+                android:id="@+id/clearBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="重签"
+                app:fb_defaultColor="#01579b"
+                app:fb_focusColor="#0288d1"
+                app:fb_radius="30dp"
+                app:fb_textColor="#FFFFFF"
+                app:fb_textSize="18sp" />
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="1dp" />
+
+            <com.example.pdf_signature.fancybuttons.FancyButton
+                android:id="@+id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="确认"
+                app:fb_defaultColor="#01579b"
+                app:fb_focusColor="#0288d1"
+                app:fb_radius="30dp"
+                app:fb_textColor="#FFFFFF"
+                app:fb_textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

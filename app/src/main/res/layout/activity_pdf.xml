@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/pdfView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="vertical">
+
+            <com.example.pdf_signature.fancybuttons.FancyButton
+                android:id="@+id/fahuorenBtn"
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:text="发货人签名"
+                app:fb_defaultColor="#01579b"
+                app:fb_focusColor="#0288d1"
+                app:fb_radius="4dp"
+                app:fb_textColor="#FFFFFF" />
+
+            <com.example.pdf_signature.fancybuttons.FancyButton
+                android:id="@+id/shusongrenBtn"
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="输送人签名"
+                app:fb_defaultColor="#01579b"
+                app:fb_focusColor="#0288d1"
+                app:fb_radius="4dp"
+                app:fb_textColor="#FFFFFF" />
+
+            <com.example.pdf_signature.fancybuttons.FancyButton
+                android:id="@+id/commitBtn"
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:text="提交签名"
+                app:fb_defaultColor="#01579b"
+                app:fb_focusColor="#0288d1"
+                app:fb_radius="4dp"
+                app:fb_textColor="#FFFFFF" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

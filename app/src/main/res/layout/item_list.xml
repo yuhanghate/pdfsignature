@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/ticketNo"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="BS001107691" />
+
+        <TextView
+            android:id="@+id/orderDocNo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="FHTZ0012401003_015" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/partnerDescr"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="青岛海湾化学股份有限公司" />
+
+        <TextView
+            android:id="@+id/productCode"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="A210" />
+
+        <TextView
+            android:id="@+id/productDescr"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="Benzene" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/loadingVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="32240" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:id="@+id/priceUom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TON" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        tools:text="2022-09-05 12:30:45" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        tools:text="2022-09-16 12:30:45" />
+
+
+</LinearLayout>

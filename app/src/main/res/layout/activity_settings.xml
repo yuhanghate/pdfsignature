@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/address_name"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="服务器地址："
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/addressEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="http://47.104.90.192:8091"
+            android:text="http://47.104.90.192:8091" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/listTv"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="获取列表接口："
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/listEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:hint="/api/getReceiptList"
+            android:text="/api/getReceiptList" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/signTv"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="保存签名接口："
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/signEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="/api/signReceipt"
+            android:text="/api/signReceipt" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deviceLL"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/deviceNoTv"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="设备序列号："
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/deviceNoEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="设备序列号"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="(点击长按可复制)"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.example.pdf_signature.fancybuttons.FancyButton
+            android:id="@+id/saveBtn"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="5dp"
+            android:text="保存"
+            app:fb_defaultColor="#01579b"
+            app:fb_focusColor="#0288d1"
+            app:fb_radius="4dp"
+            app:fb_textColor="#FFFFFF" />
+
+        <com.example.pdf_signature.fancybuttons.FancyButton
+            android:id="@+id/backBtn"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:text="返回"
+            app:fb_defaultColor="#01579b"
+            app:fb_focusColor="#0288d1"
+            app:fb_radius="4dp"
+            app:fb_textColor="#FFFFFF" />
+    </LinearLayout>
+</LinearLayout>
