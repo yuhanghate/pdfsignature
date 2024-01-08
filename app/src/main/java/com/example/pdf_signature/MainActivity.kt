@@ -1,21 +1,23 @@
 package com.example.pdf_signature
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.hutool.json.JSONUtil
 import cn.zhxu.okhttps.HTTP
 import cn.zhxu.okhttps.HttpResult
-import cn.zhxu.okhttps.OkHttpsException
 import cn.zhxu.okhttps.gson.GsonMsgConvertor
 import com.example.pdf_signature.adapter.MyAdapter
 import com.example.pdf_signature.model.result.ListResult
@@ -24,10 +26,8 @@ import com.example.pdf_signature.utils.SharedPreferencesUtils
 import com.example.pdf_signature.utils.SharedPreferencesUtils.getListApi
 import com.example.pdf_signature.utils.SharedPreferencesUtils.getSignApi
 import com.example.pdf_signature.utils.UuidUtils
-import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.api.RefreshLayout
-import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
@@ -82,13 +82,48 @@ class MainActivity : AppCompatActivity() {
         refreshLayout.setEnableLoadMore(false)
 
 //        PDFTv.visibility = View.VISIBLE
-//        settingTv.visibility = View.VISIBLE
+        settingTv.visibility = View.VISIBLE
         PDFTv.setOnClickListener { startActivity(Intent(this, PDFActivity::class.java)) }
-        settingTv.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
+        settingTv.setOnClickListener {
+            showPaaword()
+
+        }
 
 
+    }
 
+    /**
+     * 输入密码
+     */
+    fun showPaaword() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
 
+        // 设置弹窗标题
+        alertDialogBuilder.setTitle("请输入密码")
+
+        // 创建一个EditText对象用于输入密码
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        alertDialogBuilder.setView(input)
+
+        // 设置弹窗按钮及点击事件
+        alertDialogBuilder.setPositiveButton(
+            "确定"
+        ) { dialog, which ->
+            val password = input.text.toString()
+            if ("8271" == password) {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            // 在这里可以处理用户输入的密码
+        }
+
+        alertDialogBuilder.setNegativeButton(
+            "取消"
+        ) { dialog, which -> dialog.cancel() }
+
+        // 创建并显示弹窗
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     override fun onStart() {

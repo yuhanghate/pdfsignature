@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.AlertDialog
 import cn.hutool.json.JSONUtil
 import cn.zhxu.okhttps.HTTP
 import cn.zhxu.okhttps.HttpResult
@@ -50,7 +49,7 @@ class PDFActivity : AppCompatActivity() {
         titleTv = findViewById(R.id.titleTv)
         titleTv.setText("PDF预览")
         findViewById<ImageView>(R.id.btnBack).setOnClickListener { finish() }
-
+        initView()
 
         ticketNo = intent.getStringExtra("ticketNo")
         val url = intent.getStringExtra("url")
@@ -63,15 +62,33 @@ class PDFActivity : AppCompatActivity() {
             if (address.endsWith("/")) {
                 address = address.subSequence(0, address.length).toString()
             }
+//            preView("${address}${url}")
+
             pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=${address}${url}")
             showDialog("加载的pdf地址：${address}${url}")
         }
 
 
 //        pdfView.loadUrl("file:///android_asset/index.html?file=" + assetUri);
-        pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=../so-BS00110769.pdf");
-        initView()
+//        pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=../so-BS00110769.pdf");
+
         onClick()
+    }
+
+    /**
+     * 预览pdf
+     *
+     * @param pdfUrl url或者本地文件路径
+     */
+    private fun preView(pdfUrl: String) {
+        //1.只使用pdf.js渲染功能，自定义预览UI界面
+//        pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=${pdfUrl}")
+        //2.使用mozilla官方demo加载在线pdf
+//        pdfView.loadUrl("http://mozilla.github.io/pdf.js/web/viewer.html?file=" + pdfUrl);
+        //3.pdf.js放到本地
+//        pdfView.loadUrl("file:///android_asset/pdfjs/web/viewer.html?file=" + pdfUrl);
+        //4.使用谷歌文档服务
+//        pdfView.loadUrl("http://docs.google.com/gviewembedded=true&url=" + pdfUrl);
     }
 
     fun showDialog(message: String) {
