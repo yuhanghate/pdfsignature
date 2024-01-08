@@ -48,7 +48,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.orderDocNo.setText(item.getOrderDocNo());
         holder.partnerDescr.setText(item.getPartnerDescr());
         holder.productCode.setText(item.getProductCode());
-        holder.productDescr.setText(item.getProductDescr());
         holder.loadingVolume.setText(String.valueOf(item.getLoadingVolume()/1000));
         holder.priceUom.setText(item.getPriceUom());
 
@@ -90,7 +89,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView orderDocNo;
         public TextView partnerDescr;
         public TextView productCode;
-        public TextView productDescr;
         public TextView loadingVolume;
         public TextView priceUom;
         public TextView startTime;
@@ -104,7 +102,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             orderDocNo = itemView.findViewById(R.id.orderDocNo);
             partnerDescr = itemView.findViewById(R.id.partnerDescr);
             productCode = itemView.findViewById(R.id.productCode);
-            productDescr = itemView.findViewById(R.id.productDescr);
             loadingVolume = itemView.findViewById(R.id.loadingVolume);
             priceUom = itemView.findViewById(R.id.priceUom);
             startTime = itemView.findViewById(R.id.startTime);

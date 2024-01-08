@@ -67,17 +67,6 @@
                 android:background="@color/divider" />
 
             <TextView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="产品名称" />
-
-            <View
-                android:layout_width="2px"
-                android:layout_height="15dp"
-                android:background="@color/divider" />
-
-            <TextView
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

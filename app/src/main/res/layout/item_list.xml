@@ -50,13 +50,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             tools:text="A210" />
-
-        <TextView
-            android:id="@+id/productDescr"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            tools:text="Benzene" />
     </LinearLayout>
 
     <LinearLayout

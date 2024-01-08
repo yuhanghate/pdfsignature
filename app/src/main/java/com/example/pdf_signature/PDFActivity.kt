@@ -1,22 +1,19 @@
 package com.example.pdf_signature
 
-import android.R.attr
-import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.AlertDialog
 import cn.hutool.json.JSONUtil
 import cn.zhxu.okhttps.HTTP
 import cn.zhxu.okhttps.HttpResult
-import cn.zhxu.okhttps.OkHttpsException
 import cn.zhxu.okhttps.gson.GsonMsgConvertor
 import com.example.pdf_signature.fancybuttons.FancyButton
 import com.example.pdf_signature.utils.SharedPreferencesUtils
@@ -34,7 +31,7 @@ class PDFActivity : AppCompatActivity() {
 
     private var sign1: String? = null
     private var sign2: String? = null
-    private var ticketNo:String? = null
+    private var ticketNo: String? = null
 
     private val REQUEST_READ_EXTERNAL_STORAGE = 2000
 
@@ -59,10 +56,15 @@ class PDFActivity : AppCompatActivity() {
         val url = intent.getStringExtra("url")
 
         if (url == null || url.isBlank()) {
-            pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=../so-BS00110769.pdf");
+            pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=../so-BS00110769.pdf")
+            showDialog("加载的pdf地址：../so-BS00110769.pdf")
         } else {
-            val address = getAddress(this)
-            pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=${address}/${url}");
+            var address = getAddress(this)
+            if (address.endsWith("/")) {
+                address = address.subSequence(0, address.length).toString()
+            }
+            pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=${address}${url}")
+            showDialog("加载的pdf地址：${address}${url}")
         }
 
 
@@ -70,6 +72,36 @@ class PDFActivity : AppCompatActivity() {
         pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=../so-BS00110769.pdf");
         initView()
         onClick()
+    }
+
+    fun showDialog(message: String) {
+        val alertDialogBuilder: AlertDialog.Builder =
+            AlertDialog.Builder(this)
+
+// 设置弹窗标题
+
+// 设置弹窗标题
+        alertDialogBuilder.setTitle("提示")
+
+// 设置弹窗消息内容
+
+// 设置弹窗消息内容
+        alertDialogBuilder.setMessage(message)
+
+// 设置弹窗按钮及点击事件
+
+// 设置弹窗按钮及点击事件
+        alertDialogBuilder.setPositiveButton("确定",
+            DialogInterface.OnClickListener { dialog, which ->
+                // 当用户点击确定按钮时执行的操作
+                dialog.dismiss()
+            })
+
+// 创建并显示弹窗
+
+// 创建并显示弹窗
+        val alertDialog: AlertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     fun initView() {
@@ -89,7 +121,7 @@ class PDFActivity : AppCompatActivity() {
     }
 
     fun onClick() {
-        commitBtn.setOnClickListener {commit() }
+        commitBtn.setOnClickListener { commit() }
         fahuorenBtn.setOnClickListener {
             val intent = Intent(this, SignatureActivity::class.java)
             startActivityForResult(intent, REQUEST_SIGN1_FLAG)
@@ -139,10 +171,13 @@ class PDFActivity : AppCompatActivity() {
                     if (mapper.getInt("errno") == 200) {
                         Toast.makeText(this, "提交成功！", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(this, "请求接口错误：${mapper.getString("errmsg")}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            "请求接口错误：${mapper.getString("errmsg")}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
-
 
 
             }

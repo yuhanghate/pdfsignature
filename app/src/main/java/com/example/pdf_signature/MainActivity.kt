@@ -118,9 +118,9 @@ class MainActivity : AppCompatActivity() {
 
         titleTv.setOnClickListener {
             val currentTime = System.currentTimeMillis()
-            if (currentTime - lastClickTime < 300) {
+            if (currentTime - lastClickTime < 800) {
                 clickCount++
-                if (clickCount >= 10) {
+                if (clickCount >= 5) {
                     startActivity(Intent(this, SettingsActivity::class.java))
                     clickCount = 0
                 }
