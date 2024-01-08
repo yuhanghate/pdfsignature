@@ -1,8 +1,6 @@
-import org.jetbrains.kotlin.resolve.descriptorUtil.findImplicitOuterClassArguments
-
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
@@ -54,37 +52,25 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation(libs.core.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3)
     implementation(libs.androidx.appcompat)
-    implementation(libs.github.okhttps)
-    implementation(libs.github.easypermissions)
+    implementation(libs.okhttps.gson)
     implementation(libs.gson)
-    implementation(libs.material)
+    implementation(libs.androidx.material)
     implementation(libs.hutool.all)
     implementation(libs.androidx.recyclerview)
     implementation(libs.refresh.layout.kernel)
     implementation(libs.refresh.header.material)
-    implementation(libs.refresh.footer.classics)
     implementation(libs.refresh.header.classics)
-//    implementation(libs.pdfium){
-//        exclude(group = "com.android.support", module = "support-v4")
-//    }
-//    implementation(libs.android.pdf.viewer){
-//        exclude(group = "com.android.support", module = "support-v4")
-//        exclude(group = "com.github.mshockwave", module = "pdfium")
-//    }
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.refresh.footer.classics)
+    implementation(libs.androidx.constraintlayout)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 }

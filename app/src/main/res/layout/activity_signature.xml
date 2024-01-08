@@ -14,14 +14,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         layout="@layout/toolbar" />
 
-    <!--    <com.f1reking.signatureview.SignatureView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        app:penColor="@color/colorPrimary"-->
-    <!--        app:penWidth="30"-->
-    <!--        app:backColor="@color/colorPrimary"-->
-    <!--        />-->
-
 
     <com.example.pdf_signature.signatureview.SignatureView
         android:id="@+id/signatureView"
