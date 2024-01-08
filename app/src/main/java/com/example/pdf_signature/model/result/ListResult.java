@@ -190,11 +190,22 @@ public class ListResult {
     @SerializedName("closeDate")
     private String closeDate;
 
+    @SerializedName("closeDateTime")
+    private String closeDateTime;
+
     /**
      * 单位TON
      */
     @SerializedName("uom")
     private String uom;
+
+    public String getCloseDateTime() {
+        return closeDateTime;
+    }
+
+    public void setCloseDateTime(String closeDateTime) {
+        this.closeDateTime = closeDateTime;
+    }
 
     /**
      * PDF文档地址

@@ -51,14 +51,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.loadingVolume.setText(String.valueOf(item.getLoadingVolume()/1000));
         holder.priceUom.setText(item.getPriceUom());
 
-        String openDate = item.getOpenDate();
-        openDate = openDate.replace("00:00:00", formatTime(item.getOpenTime()));
-        holder.startTime.setText(openDate);
+//        String closeDate = item.getCloseDate();
+//        closeDate = closeDate.replace("00:00:00", formatTime(item.getCloseTime()));
+        holder.startTime.setText(item.getCloseDateTime());
 
-
-        String endData = item.getCloseDate();
-        endData = endData.replace("00:00:00", formatTime(item.getCloseTime()));
-        holder.startTime.setText(endData);
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(activity, PDFActivity.class);
@@ -93,7 +89,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView priceUom;
         public TextView startTime;
 
-        public TextView endTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,7 +100,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             loadingVolume = itemView.findViewById(R.id.loadingVolume);
             priceUom = itemView.findViewById(R.id.priceUom);
             startTime = itemView.findViewById(R.id.startTime);
-            endTime = itemView.findViewById(R.id.endTime);
         }
     }
 }

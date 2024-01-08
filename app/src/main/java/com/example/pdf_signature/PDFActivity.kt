@@ -56,7 +56,7 @@ class PDFActivity : AppCompatActivity() {
 
         if (url == null || url.isBlank()) {
             pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=../so-BS00110769.pdf")
-            showDialog("加载的pdf地址：../so-BS00110769.pdf")
+//            showDialog("加载的pdf地址：../so-BS00110769.pdf")
         } else {
             var address = getAddress(this)
             if (address.endsWith("/")) {
@@ -65,7 +65,7 @@ class PDFActivity : AppCompatActivity() {
 //            preView("${address}${url}")
 
             pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=${address}${url}")
-            showDialog("加载的pdf地址：${address}${url}")
+//            showDialog("加载的pdf地址：${address}${url}")
         }
 
 

@@ -77,17 +77,11 @@
 
     <TextView
         android:id="@+id/startTime"
-        android:layout_width="180dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         tools:text="2022-09-05 12:30:45" />
 
-    <TextView
-        android:id="@+id/endTime"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        tools:text="2022-09-16 12:30:45" />
 
 
 </LinearLayout>

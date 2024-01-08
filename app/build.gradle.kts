@@ -1,3 +1,9 @@
+import org.gradle.internal.impldep.org.apache.maven.model.InputLocation.StringFormatter
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -48,6 +54,24 @@ android {
         }
 
     }
+
+
+
+    android.applicationVariants.all {
+
+        val buildType = this.buildType.name
+        var filename: String? = null
+        this.outputs.forEach {
+            if (buildType == "release") {
+                filename = "${defaultConfig.versionName}_${defaultConfig.versionName}_${getCurrentTime()}.apk"
+            }
+        }
+    }
+}
+
+fun getCurrentTime(): String {
+    val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+    return dateFormat.format(Date())
 }
 
 dependencies {
