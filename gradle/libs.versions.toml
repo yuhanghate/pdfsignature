@@ -1,6 +1,8 @@
 [versions]
 agp = "8.2.0"
 appcompat = "1.6.1"
+st = "1.0.1"
+google-material = "1.11.0"
 gson = "2.10.1"
 hutool-all = "5.8.24"
 kotlin = "1.9.0"
@@ -16,6 +18,9 @@ okhttps-gson = "4.0.1"
 recyclerview = "1.3.2"
 refresh-footer-classics = "2.1.0"
 constraintlayout = "2.1.4"
+coordinatorlayout = "1.2.0"
+toast = "0.7.4"
+toasty = "1.5.2"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -30,11 +35,14 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+material = { module = "com.google.android.material:material", version.ref = "google-material" }
 okhttps-gson = { module = "cn.zhxu:okhttps-gson", version.ref = "okhttps-gson" }
 refresh-footer-classics = { module = "io.github.scwang90:refresh-footer-classics", version.ref = "refresh-footer-classics" }
 refresh-header-classics = { module = "io.github.scwang90:refresh-header-classics", version.ref = "refresh-footer-classics" }
 refresh-header-material = { module = "io.github.scwang90:refresh-header-material", version.ref = "refresh-footer-classics" }
 refresh-layout-kernel = { module = "io.github.scwang90:refresh-layout-kernel", version.ref = "refresh-footer-classics" }
+toast = { module = "com.github.xluu233:ToastBox", version.ref = "toast" }
+toasty = { module = "com.github.GrenderG:Toasty", version.ref = "toasty" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -43,6 +51,7 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

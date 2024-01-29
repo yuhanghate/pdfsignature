@@ -31,6 +31,7 @@
                 android:id="@+id/fahuorenBtn"
                 android:layout_width="110dp"
                 android:layout_height="45dp"
+                android:visibility="gone"
                 android:text="发货人签名"
                 app:fb_defaultColor="#01579b"
                 app:fb_focusColor="#0288d1"
@@ -59,6 +60,14 @@
                 app:fb_radius="4dp"
                 app:fb_textColor="#FFFFFF" />
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@android:style/Widget.Material.Light.ProgressBar.Large"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
+
 
 </LinearLayout>

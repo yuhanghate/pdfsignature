@@ -95,6 +95,7 @@ dependencies {
     implementation(libs.refresh.header.classics)
     implementation(libs.refresh.footer.classics)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 }

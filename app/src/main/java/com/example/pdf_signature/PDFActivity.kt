@@ -1,16 +1,19 @@
 package com.example.pdf_signature
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import cn.hutool.json.JSONUtil
+import cn.zhxu.data.Mapper
 import cn.zhxu.okhttps.HTTP
 import cn.zhxu.okhttps.HttpResult
 import cn.zhxu.okhttps.gson.GsonMsgConvertor
@@ -18,15 +21,17 @@ import com.example.pdf_signature.fancybuttons.FancyButton
 import com.example.pdf_signature.utils.SharedPreferencesUtils
 import com.example.pdf_signature.utils.SharedPreferencesUtils.getAddress
 import com.example.pdf_signature.utils.UuidUtils
+import com.google.android.material.snackbar.Snackbar
 
 
 class PDFActivity : AppCompatActivity() {
 
     private lateinit var pdfView: WebView
-    private lateinit var fahuorenBtn: FancyButton
+//    private lateinit var fahuorenBtn: FancyButton
     private lateinit var shusongrenBtn: FancyButton
     private lateinit var commitBtn: FancyButton
     private lateinit var titleTv: TextView
+    private lateinit var progress:ProgressBar
 
     private var sign1: String? = null
     private var sign2: String? = null
@@ -37,19 +42,24 @@ class PDFActivity : AppCompatActivity() {
     private val REQUEST_SIGN1_FLAG = 100
     private val REQUEST_SIGN2_FLAG = 200
 
+    private var handler: Handler? = null
+    private var runnable: Runnable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf)
 
         pdfView = findViewById(R.id.pdfView)
-        fahuorenBtn = findViewById(R.id.fahuorenBtn)
+//        fahuorenBtn = findViewById(R.id.fahuorenBtn)
         shusongrenBtn = findViewById(R.id.shusongrenBtn)
         commitBtn = findViewById(R.id.commitBtn)
+        progress = findViewById(R.id.progress)
         titleTv = findViewById(R.id.titleTv)
         titleTv.setText("PDF预览")
         findViewById<ImageView>(R.id.btnBack).setOnClickListener { finish() }
         initView()
+        handler = Handler(Looper.myLooper()!!)
 
         ticketNo = intent.getStringExtra("ticketNo")
         val url = intent.getStringExtra("url")
@@ -75,52 +85,6 @@ class PDFActivity : AppCompatActivity() {
         onClick()
     }
 
-    /**
-     * 预览pdf
-     *
-     * @param pdfUrl url或者本地文件路径
-     */
-    private fun preView(pdfUrl: String) {
-        //1.只使用pdf.js渲染功能，自定义预览UI界面
-//        pdfView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=${pdfUrl}")
-        //2.使用mozilla官方demo加载在线pdf
-//        pdfView.loadUrl("http://mozilla.github.io/pdf.js/web/viewer.html?file=" + pdfUrl);
-        //3.pdf.js放到本地
-//        pdfView.loadUrl("file:///android_asset/pdfjs/web/viewer.html?file=" + pdfUrl);
-        //4.使用谷歌文档服务
-//        pdfView.loadUrl("http://docs.google.com/gviewembedded=true&url=" + pdfUrl);
-    }
-
-    fun showDialog(message: String) {
-        val alertDialogBuilder: AlertDialog.Builder =
-            AlertDialog.Builder(this)
-
-// 设置弹窗标题
-
-// 设置弹窗标题
-        alertDialogBuilder.setTitle("提示")
-
-// 设置弹窗消息内容
-
-// 设置弹窗消息内容
-        alertDialogBuilder.setMessage(message)
-
-// 设置弹窗按钮及点击事件
-
-// 设置弹窗按钮及点击事件
-        alertDialogBuilder.setPositiveButton("确定",
-            DialogInterface.OnClickListener { dialog, which ->
-                // 当用户点击确定按钮时执行的操作
-                dialog.dismiss()
-            })
-
-// 创建并显示弹窗
-
-// 创建并显示弹窗
-        val alertDialog: AlertDialog = alertDialogBuilder.create()
-        alertDialog.show()
-    }
-
     fun initView() {
         val webSettings: WebSettings = pdfView.getSettings()
         webSettings.javaScriptEnabled = true
@@ -139,10 +103,10 @@ class PDFActivity : AppCompatActivity() {
 
     fun onClick() {
         commitBtn.setOnClickListener { commit() }
-        fahuorenBtn.setOnClickListener {
-            val intent = Intent(this, SignatureActivity::class.java)
-            startActivityForResult(intent, REQUEST_SIGN1_FLAG)
-        }
+//        fahuorenBtn.setOnClickListener {
+//            val intent = Intent(this, SignatureActivity::class.java)
+//            startActivityForResult(intent, REQUEST_SIGN1_FLAG)
+//        }
         shusongrenBtn.setOnClickListener {
             val intent = Intent(this, SignatureActivity::class.java)
             startActivityForResult(intent, REQUEST_SIGN2_FLAG)
@@ -151,6 +115,7 @@ class PDFActivity : AppCompatActivity() {
 
 
     fun commit() {
+        progress.visibility = View.VISIBLE
         val address = getAddress(this)
         val signApi = SharedPreferencesUtils.getSignApi(this)
 
@@ -159,10 +124,10 @@ class PDFActivity : AppCompatActivity() {
             return
         }
 
-        if (sign1 == null || sign1!!.isBlank()) {
-            Toast.makeText(this, "当前发货人签名不能为空！", Toast.LENGTH_LONG).show()
-            return
-        }
+//        if (sign1 == null || sign1!!.isBlank()) {
+//            Toast.makeText(this, "当前发货人签名不能为空！", Toast.LENGTH_LONG).show()
+//            return
+//        }
 
         if (sign2 == null || sign2!!.isBlank()) {
             Toast.makeText(this, "当前输送人签名不能为空！", Toast.LENGTH_LONG).show()
@@ -177,16 +142,47 @@ class PDFActivity : AppCompatActivity() {
         val map = hashMapOf<String, String>()
         map["ticketNo"] = ticketNo!!
         map["deviceCode"] = UuidUtils.getOrCreateUuid(this)
-        map["sign1"] = sign1!!
+//        map["sign1"] = sign1!!
         map["sign2"] = sign2!!
 
         http.async(signApi)
             .setOnResponse { res: HttpResult ->
 
-                val mapper = res.body.toMapper()
+                var mapper: Mapper?
+                try {
+                    mapper = res.body.toMapper()
+                } catch (e: Exception) {
+                    runOnUiThread {
+                        progress.visibility = View.GONE
+                        Toast.makeText(this, "网络问题，请重试", Toast.LENGTH_LONG).show()
+                    }
+                    return@setOnResponse
+                }
+
+
                 runOnUiThread {
+                    progress.visibility = View.GONE
                     if (mapper.getInt("errno") == 200) {
-                        Toast.makeText(this, "提交成功！", Toast.LENGTH_LONG).show()
+
+                        Snackbar.make(commitBtn, "当前签名，提交成功！", Snackbar.LENGTH_LONG)
+                            .show()
+//                        Snackbar.make(coordinatorLayout,"提交成功！",Snackbar.LENGTH_LONG).show();
+
+                        // 创建一个Runnable对象
+
+                        // 创建一个Runnable对象
+                        runnable = object : Runnable {
+                            override fun run() {
+                                // 在此处执行定时任务的操作
+                                finish()
+                            }
+                        }
+
+                        // 延迟启动定时任务，时间间隔为1000毫秒(1秒)
+
+                        // 延迟启动定时任务，时间间隔为1000毫秒(1秒)
+                        handler!!.postDelayed(runnable as Runnable, 4000)
+
                     } else {
                         Toast.makeText(
                             this,
@@ -199,6 +195,9 @@ class PDFActivity : AppCompatActivity() {
 
             }
             .setBodyPara(JSONUtil.toJsonStr(map))
+            .setOnException {
+                Toast.makeText(this, "服务器接口请求异常：${it.message}", Toast.LENGTH_LONG).show()
+            }
             .bodyType("application/json")
             .post()
     }
@@ -207,7 +206,7 @@ class PDFActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_SIGN1_FLAG) {
             sign1 = data?.getStringExtra("result")
-            fahuorenBtn.isEnabled = false
+//            fahuorenBtn.isEnabled = false
 
         } else if (resultCode == RESULT_OK && requestCode == REQUEST_SIGN2_FLAG) {
             sign2 = data?.getStringExtra("result")

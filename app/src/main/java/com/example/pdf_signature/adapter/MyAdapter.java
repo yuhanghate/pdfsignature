@@ -50,6 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.productCode.setText(item.getProductCode());
         holder.loadingVolume.setText(String.valueOf(item.getLoadingVolume()/1000));
         holder.priceUom.setText(item.getPriceUom());
+        holder.vehicleNo.setText(item.getVehicleNo());
 
 //        String closeDate = item.getCloseDate();
 //        closeDate = closeDate.replace("00:00:00", formatTime(item.getCloseTime()));
@@ -88,6 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView loadingVolume;
         public TextView priceUom;
         public TextView startTime;
+        public TextView vehicleNo;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -100,6 +102,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             loadingVolume = itemView.findViewById(R.id.loadingVolume);
             priceUom = itemView.findViewById(R.id.priceUom);
             startTime = itemView.findViewById(R.id.startTime);
+            vehicleNo = itemView.findViewById(R.id.vehicleNo);
         }
     }
 }

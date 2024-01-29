@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.hutool.json.JSONUtil
+import cn.zhxu.data.Mapper
 import cn.zhxu.okhttps.HTTP
 import cn.zhxu.okhttps.HttpResult
 import cn.zhxu.okhttps.gson.GsonMsgConvertor
@@ -183,8 +184,23 @@ class MainActivity : AppCompatActivity() {
         http.async(listApi)
             .setOnResponse { res: HttpResult ->
 
+
                 // 自动反序列化 Bean
-                val mapper = res.body.toMapper()
+                var mapper : Mapper?
+
+                try {
+                    mapper =  res.body.toMapper()
+                } catch (e: Exception) {
+                    runOnUiThread {
+                        Toast.makeText(
+                            this,
+                            "网络不好，请重试！",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    return@setOnResponse
+                }
+
 
                 if (mapper.getInt("errno") == 200) {
                     val data = mapper.getArray("data")
