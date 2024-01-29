@@ -3,6 +3,8 @@ package com.example.pdf_signature
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -44,6 +46,9 @@ class MainActivity : AppCompatActivity() {
     private var address: String? = null
     private var listApi: String? = null
     private var signApi: String? = null
+
+    private var handler: Handler? = null
+    private var runnable: Runnable? = null
 
 
     private val TAG = MainActivity::class.java.simpleName
@@ -89,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             showPaaword()
 
         }
+        handler = Handler(Looper.getMainLooper());
 
 
     }
@@ -131,6 +137,8 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         errorTv.visibility = View.GONE
 
+
+
         address = SharedPreferencesUtils.getAddress(this)
         if (address == null || address!!.isBlank()) {
             Toast.makeText(this, "请填写当前服务器地址", Toast.LENGTH_LONG).show()
@@ -168,6 +176,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        handler?.postDelayed({ refresh() }, 10000)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // 在Activity销毁时，移除定时任务，避免内存泄漏
+        runnable?.let {
+            handler?.removeCallbacks(it);
+        }
+    }
+
 
     /**
      * 刷新
@@ -186,10 +207,10 @@ class MainActivity : AppCompatActivity() {
 
 
                 // 自动反序列化 Bean
-                var mapper : Mapper?
+                var mapper: Mapper?
 
                 try {
-                    mapper =  res.body.toMapper()
+                    mapper = res.body.toMapper()
                 } catch (e: Exception) {
                     runOnUiThread {
                         Toast.makeText(

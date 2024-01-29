@@ -213,4 +213,13 @@ class PDFActivity : AppCompatActivity() {
             shusongrenBtn.isEnabled = false
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 在Activity销毁时，移除定时任务，避免内存泄漏
+        runnable?.let {
+            handler?.removeCallbacks(it);
+        }
+
+    }
 }
