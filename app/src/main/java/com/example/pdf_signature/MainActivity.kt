@@ -233,15 +233,21 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.setAdapter(adapter)
                     }
                 } else {
-                    Toast.makeText(
-                        this,
-                        "请求接口错误：${mapper.getString("errmsg")}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    runOnUiThread {
+                        Toast.makeText(
+                            this,
+                            "请求接口错误：${mapper.getString("errmsg")}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
                 }
             }
             .setOnException {
-                Toast.makeText(this, "服务器接口请求异常：${it.message}", Toast.LENGTH_LONG).show()
+                runOnUiThread {
+                    Toast.makeText(this, "服务器接口请求异常：${it.message}", Toast.LENGTH_LONG).show()
+                }
+
             }
             .setBodyPara(JSONUtil.toJsonStr(map))
             .bodyType("application/json")

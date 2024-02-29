@@ -184,11 +184,14 @@ class PDFActivity : AppCompatActivity() {
                         handler!!.postDelayed(runnable as Runnable, 4000)
 
                     } else {
-                        Toast.makeText(
-                            this,
-                            "请求接口错误：${mapper.getString("errmsg")}",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        runOnUiThread {
+                            Toast.makeText(
+                                this,
+                                "请求接口错误：${mapper.getString("errmsg")}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
                     }
                 }
 
@@ -196,7 +199,10 @@ class PDFActivity : AppCompatActivity() {
             }
             .setBodyPara(JSONUtil.toJsonStr(map))
             .setOnException {
-                Toast.makeText(this, "服务器接口请求异常：${it.message}", Toast.LENGTH_LONG).show()
+                runOnUiThread {
+                    Toast.makeText(this, "服务器接口请求异常：${it.message}", Toast.LENGTH_LONG).show()
+                }
+
             }
             .bodyType("application/json")
             .post()
