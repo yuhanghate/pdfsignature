@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.hutool.core.util.StrUtil
 import cn.hutool.json.JSONUtil
 import cn.zhxu.data.Mapper
 import cn.zhxu.okhttps.HTTP
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var titleTv: TextView
     private lateinit var settingTv: View
     private lateinit var PDFTv: View
+    private lateinit var refreshTv:View
 
     private var address: String? = null
     private var listApi: String? = null
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         errorTv = findViewById(R.id.errorTv)
         settingTv = findViewById(R.id.settingTv)
         PDFTv = findViewById(R.id.PDFTv)
+        refreshTv = findViewById(R.id.refreshTv)
 
 
         adapter = MyAdapter(listOf(), this)
@@ -82,9 +85,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(dividerItemDecoration)
 
         refreshLayout.setOnRefreshListener { refreshlayout ->
-            refreshlayout.finishRefresh(2000 /*,false*/) //传入false表示刷新失败
             refresh()
         }
+
+        refreshTv.visibility = View.VISIBLE
+        refreshTv.setOnClickListener { refreshLayout.autoRefresh() }
         refreshLayout.setEnableLoadMore(false)
 
 //        PDFTv.visibility = View.VISIBLE
@@ -194,6 +199,10 @@ class MainActivity : AppCompatActivity() {
      * 刷新
      */
     fun refresh() {
+        address = SharedPreferencesUtils.getAddress(this)
+        if (StrUtil.isBlank(address)) {
+            return
+        }
         val http = HTTP.builder()
             .baseUrl(address)
             .addMsgConvertor(GsonMsgConvertor())
@@ -205,6 +214,7 @@ class MainActivity : AppCompatActivity() {
         http.async(listApi)
             .setOnResponse { res: HttpResult ->
 
+                runOnUiThread { refreshLayout.finishRefresh() }
 
                 // 自动反序列化 Bean
                 var mapper: Mapper?
@@ -226,11 +236,22 @@ class MainActivity : AppCompatActivity() {
                 if (mapper.getInt("errno") == 200) {
                     val data = mapper.getArray("data")
 
+                    if (data == null) {
+                        runOnUiThread {
+                            errorTv.visibility = View.GONE
+                            adapter.updateData(arrayListOf())
+                            recyclerView.setAdapter(adapter)
+                            Toast.makeText(this,"当前列表暂无数据！", Toast.LENGTH_LONG).show()
+
+                        }
+                        return@setOnResponse
+                    }
                     val list = data.toList(ListResult::class.java)
                     runOnUiThread {
                         errorTv.visibility = View.GONE
                         adapter.updateData(list)
                         recyclerView.setAdapter(adapter)
+                        Toast.makeText(this, "刷新成功！", Toast.LENGTH_LONG).show()
                     }
                 } else {
                     runOnUiThread {
@@ -245,6 +266,7 @@ class MainActivity : AppCompatActivity() {
             }
             .setOnException {
                 runOnUiThread {
+                    refreshLayout.finishRefresh()
                     Toast.makeText(this, "服务器接口请求异常：${it.message}", Toast.LENGTH_LONG).show()
                 }
 
@@ -270,6 +292,11 @@ class MainActivity : AppCompatActivity() {
             R.id.pdfView -> {
                 startActivity(Intent(this, PDFActivity::class.java))
                 return true
+            }
+
+            R.id.action_refresh ->{
+                refreshLayout.autoRefresh()
+
             }
 
         }

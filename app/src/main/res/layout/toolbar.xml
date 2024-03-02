@@ -36,6 +36,14 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:orientation="horizontal">
+            <Button
+                android:id="@+id/refreshTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="32dp"
+                android:visibility="gone"
+                android:text="刷新" />
 
             <ImageView
                 android:id="@+id/settingTv"
@@ -57,6 +65,9 @@
                 android:focusable="true"
                 android:src="@drawable/icon_pdf"
                 android:visibility="gone" />
+
+
+
         </LinearLayout>
 
     </RelativeLayout>
