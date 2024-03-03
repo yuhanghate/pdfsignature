@@ -20,11 +20,12 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:visibility="gone"
             tools:text="BS001107691" />
 
         <TextView
             android:id="@+id/orderDocNo"
-            android:layout_width="180dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:gravity="center"
@@ -61,13 +62,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="160dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/loadingVolume"
+            android:id="@+id/accountingVolume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="32240" />
